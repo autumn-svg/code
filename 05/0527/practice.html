@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <h1>안녕안녕이건제목</h1>
+    <hr>
+    <ul>
+        <li :class="{ 'is-selected' : isSelected }">
+        <label class="selected">이건 선택</label>
+        <input type="checkbox" name="selected" v-model="isSelected">
+        <h3>{{ koTitle }}</h3>
+        <p v-html="description">전시 정보 설명</p>
+        <hr>
+        <p>{{ artMuseum }}</p>
+        <a :href="gameURL">마크 체험하러 가기</a>
+        <hr>
+        <p>같이 할 사람</p>
+        <div :class="{'is-required': countPeople <= 0}">
+          <span>좋아요 : {{ countPeople }} 명 </span>
+          <button @click="decreaseNum" :disabled="countPeople <= 0" >좋아요취소</button>
+          <button @click="increaseNum" :disabled="countPeople >= 100">좋아요</button>
+        </div>
+        <hr>
+      </li>
+    </ul>
+    <p>총 입장료 : {{totalPrice}} 원</p>
+  </div>
+
+  <script src="https://unpkg.com/vue@3.5.34/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref } = Vue
+    const app = createApp({
+      setup() {
+       const koTitle = ref('방가방가햄토리') 
+       const gameURL = ref('https://www.google.com/search?gs_ssp=eJzj4tLP1TewLDPLLkg3YPTizM3MS00uSkwrAQBSzwd0&q=minecraft&oq=%E3%85%A1%E3%85%91%E3%85%9C&gs_lcrp=EgZjaHJvbWUqCggBEC4YsQMYgAQyBggAEEUYOTIKCAEQLhixAxiABDINCAIQLhiDARixAxiABDIKCAMQABixAxiABDINCAQQABiDARixAxiABDIKCAUQABixAxiABDIQCAYQLhjHARixAxjRAxiABDIKCAcQABixAxiABDIKCAgQABixAxiABNIBCDIxODNqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8')
+       const countPeople = ref(0)
+       const discount = function() {
+        countPeople.value -= 1
+       }
+       const count = function() {
+        countPeople.value += 1
+       }
+
+
+       return {
+        koTitle,
+        gameURL,
+       }
+      }
+    })
+    app.mount('#app')
+  </script>
+</body>
+</html>
