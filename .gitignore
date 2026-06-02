@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/windows,python,visualstudiocode,django,macos
-# Edit at https://www.toptal.com/developers/gitignore?templates=windows,python,visualstudiocode,django,macos
+# Created by https://www.toptal.com/developers/gitignore/api/vue,vuejs,windows,macos,django,python,visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=vue,vuejs,windows,macos,django,python,visualstudiocode
 
 ### Django ###
 *.log
@@ -315,6 +315,24 @@ pyrightconfig.json
 .history
 .ionide
 
+### Vue ###
+# gitignore template for Vue.js projects
+#
+# Recommended template: Node.gitignore
+
+# TODO: where does this rule come from?
+docs/_book
+
+# TODO: where does this rule come from?
+test/
+
+### Vuejs ###
+# Recommended template: Node.gitignore
+
+node_modules/
+npm-debug.log
+yarn-error.log
+
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
@@ -341,4 +359,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/windows,python,visualstudiocode,django,macos
+# End of https://www.toptal.com/developers/gitignore/api/vue,vuejs,windows,macos,django,python,visualstudiocode
