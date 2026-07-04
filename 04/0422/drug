@@ -1,0 +1,96 @@
+def check_film():
+    # 열 우선순회를 하면서 통과기준인지 체크 할 함수
+    if K == 1:
+        #통과 조건이 1이면 무조건 성공
+        return True
+
+    for j in range(W):
+        cnt = 1
+        val = film[0][j]
+        # 초기값으로 시작하고
+        # 투여약품이 1개는 통과했다고 보고 시작
+        for i in range(1, D):
+            if film[i][j] == val:
+                # 지금 보는 값이 초기값과 같으면
+                # 카운트를 1 올리고
+                cnt += 1
+                if cnt >= K:
+                    # 혹시 기준에 만족하면 브레이크!
+                    # 브레이크해야 다음열 확인함 필수임
+                    break
+
+            else:
+                # 만약 지금보는 값이 초기값과 다르면
+                val = film[i][j]
+                # 카운트 초기화, 초기값 교체
+                cnt = 1
+        else:
+            # 만약 브레이크가 안되고
+            # for 문이 끝났으면, 조건에 만족 X
+            # 불가 판정
+            return False
+    # 이 for문을 다 돌고 나오면
+    # 모두 통과 됐다는거니까 리턴 트루
+    # 여기까지 다 짰으면 dfs 짜러가기
+    return True
+
+def setting(idx, value):
+    # 그냥 쓰기 귀찮아서 만드는 함수임 간단함
+    for j in range(W):
+        film[idx][j] = value
+
+def dfs(idx, cnt):
+    global result
+    # 인덱스를 들고와서 해당인덱스에 약물투입해서
+    # 1혹은 0으로 만들고 다음거 고려하는 로직
+
+    # 기저조건
+    if idx == D:
+        if check_film():
+            if result > cnt:
+                result = cnt
+        return
+
+    # 가지치기
+    if cnt >= result:
+        return
+
+    # 재귀
+    dfs(idx + 1, cnt)
+    # 일단 뿌리지 않고 재귀
+
+    before = [film[idx][j] for j in range(W)]
+    # 투약 전 정보 저장
+    # 투약하는 함수 def setting() 짜러가기
+    setting(idx, 1)
+    # 1번 약물 투약 후 재귀
+    dfs(idx + 1, cnt + 1)
+    setting(idx, 0)
+    # 0번 약물 투약 후 재귀
+    dfs(idx + 1, cnt + 1)
+    for j in range(W):
+        film[idx][j] = before[j]
+        # 백트레킹
+        # 끝 이제 함수 호출하고 돌리기
+
+
+# 인풋 받기!
+T = int(input())
+for test_case in range(1, T + 1):
+    D, W, K = map(int, input().split())
+
+    film = [list(map(int, input().split())) for _ in range(D)]
+
+    # 투약을 몇번하는지 정답!
+    # K 번 이상하면 무조건 정답이기 때문에
+    # K 로 설정하고 def check_film 짜러가기
+    result = K
+
+    if check_film():
+        result = 0
+
+    else:
+        dfs(0, 0)
+
+    print(f"#{test_case}", result)
+
